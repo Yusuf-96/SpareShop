@@ -1,0 +1,283 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="bg-white">
+  <main class="mt-4">
+    {% for order_item in order_items %}
+
+    <div class="container mx-auto px-6">
+      <div class="md:flex md:items-center">
+        <div class="w-full h-40 md:w-1/2 lg:h-80">
+          <img
+            class="h-full w-full rounded-md object-cover max-w-lg mx-auto"
+            src="/media/{{ order_item.item.image }}"
+            alt=""
+          />
+        </div>
+        <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
+          <h3 class="text-gray-700 uppercase text-lg">
+            {{ order_item.item.item_name }}
+          </h3>
+          <span class="text-gray-500 mt-3">
+            Price of single item: Tsh {{ order_item.item.price }}</span
+          >
+          <hr class="my-3" />
+          <div class="mt-2">
+            <p class="text-sm text-gray-700 mt-4">
+              {{ order_item.item.description }}
+            </p>
+
+            <label class="text-gray-700 text-sm" for="count">Quatity:</label>
+            <div class="flex items-center mt-1">
+              <a
+                href="{% url 'spares:add-to-cart' order_item.item.pk %}"
+                class="text-gray-500 focus:outline-none focus:text-gray-600"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </a>
+              <span class="text-gray-700 text-lg mx-2">
+                {{ order_item.quantity }}</span
+              >
+              <a
+                href="{% url 'spares:remove-single-item-from-cart' order_item.item.pk %}"
+                class="text-gray-500 focus:outline-none focus:text-gray-600"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="text-gray-700 text-sm" for="count"
+              >Model: {{ order_item.item.car }} 
+              {{ order_item.item.car.car_model }}
+            </label>
+            <div class="flex items-center mt-1">
+              <span>Total Price: Tsh {{ orders.get_total }} </span>
+              <!-- <button
+                class="
+                  h-5
+                  w-5
+                  rounded-full
+                  bg-blue-600
+                  border-2 border-blue-200
+                  mr-2
+                  focus:outline-none
+                "
+              ></button>
+              <button
+                class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none"
+              ></button>
+              <button
+                class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"
+              ></button> -->
+            </div>
+            <!-- <div class="flex items-center mt-1">
+              <button
+                class="
+                  h-5
+                  w-5
+                  rounded-full
+                  bg-blue-600
+                  border-2 border-blue-200
+                  mr-2
+                  focus:outline-none
+                "
+              ></button>
+              <button
+                class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none"
+              ></button>
+              <button
+                class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"
+              ></button>
+            </div> -->
+          </div>
+          <div
+            class="flex items-center mt-6 space-x-2"
+            x-data="{ isOpen: false }"
+          >
+            <button
+              class="
+                px-8
+                py-2
+                bg-indigo-600
+                text-white text-sm
+                font-medium
+                rounded
+                hover:bg-indigo-500
+                focus:outline-none focus:bg-indigo-500
+              "
+              @click="isOpen = true"
+              
+            >
+              Sale Now
+            </button>
+            <!-- Model -->
+            <div
+              class="
+                flex
+                items-center
+                justify-center
+                left-0
+                bottom-0
+                w-full
+                h-full
+                absolute
+              "
+              x-show="isOpen"
+              x-transition:enter="transition transform ease-out duration-300"
+              x-transition:enter-start="opacity-0 scale-75 "
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="transition transform ease-out duration-300"
+              x-transiton:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-75"
+            >
+              <div class="bg-gray-100 shadow-lg rounded-lg w-1/2">
+                <div class="flex flex-col items-start p-4">
+                  <div class="flex items-center w-full">
+                    <div class="text-gray-900 font-medium text-lg">
+                      Sale Confirmation
+                    </div>
+                    <svg
+                      class="
+                        ml-auto
+                        fill-current
+                        text-gray-700
+                        w-6
+                        h-6
+                        cursor-pointer
+                      "
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
+                      />
+                    </svg>
+                  </div>
+                  <hr />
+                  <div class="text-sm">
+                    Are sure you want to sale
+                    <strong>{{ order_item.item.item_name }}</strong>
+                  </div>
+                  <hr />
+                  <div class="ml-auto mt-4">
+                    <a
+                      href="{% url 'spares:sale' order_item.pk %}"
+                      class="
+                        bg-blue-500
+                        hover:bg-blue-700
+                        text-white
+                        font-bold
+                        py-2
+                        px-4
+                        rounded
+                      "
+                      type="submit"
+                    >
+                      Agree
+                    </a>
+                    <button
+                      class="
+                        bg-gray-400
+                        hover:bg-gray-500
+                        text-white
+                        font-bold
+                        hover:text-white
+                        py-2
+                        px-4
+                        rounded
+                        ml-2
+                      "
+                      @click="isOpen = false"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a
+              href="{{ order_item.get_remove_from_cart_url }}"
+              class="
+                px-8
+                py-2
+                bg-indigo-600
+                text-white text-sm
+                font-medium
+                rounded
+                hover:bg-indigo-500
+                focus:outline-none focus:bg-indigo-500
+              "
+            >
+              Remove from Cart
+            </a>
+            <!-- <button
+              class="
+                px-8
+                py-2
+                bg-indigo-600
+                text-white text-sm
+                font-medium
+                rounded
+                hover:bg-indigo-500
+                focus:outline-none
+                focus:bg-indigo-500
+              "
+            >
+              Sale Now
+            </button> -->
+            <!-- <button
+              class="
+                mx-2
+                text-gray-600
+                border
+                rounded-md
+                p-2
+                hover:bg-gray-200
+                focus:outline-none
+              "
+            >
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </main>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,184 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="bg-white">
+  <header>
+    <div class="container mx-auto px-6 py-3">
+       <nav class="sm:flex sm:justify-center sm:items-center mt-4">
+                <div x-data="{ dropdownOpen: false }" class="flex flex-col sm:flex-row ralative">
+                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="{% url 'spares:home' %}">All Products</a>
+                    <!-- <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">Shop</a> -->
+                    <button @click = "dropdownOpen = ! dropdownOpen" class="mt-3 text-gray-600  sm:mx-3 sm:mt-0 
+                    realtive overflow-hidden block focus:outline-none " >Categories
+                    </button>
+                    <!-- <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">Contact</a>
+                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">About</a> -->
+
+                     <div
+                      x-show="dropdownOpen"
+                      @click="dropdownOpen = false"
+                      class="fixed inset-0 h-full w-full z-10"
+                      style="display: none"
+                    ></div>
+                        
+                      <div
+                        x-show="dropdownOpen"
+                        class="
+                          absolute
+                          
+                          mt-6
+                          w-48
+                          bg-white
+                          border-2
+                          rounded-md
+                          overflow-hidden
+                          shadow-xl
+                          z-10
+                        "
+                        style="display: none"
+                        x-transition:enter="transition transform ease-out duration-200"
+                        x-transition:enter-start="opacity-0 scale-75"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition transform ease-out duration-200"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-75"
+                      > 
+                      {% for car in cars %}
+                        <a
+                          href="/car/{{ car.id }}/"
+                          class="
+                            block
+                            px-4
+                            py-2
+                            text-sm text-gray-700
+                            hover:bg-indigo-600
+                            hover:text-white
+                          "
+                          >{{ car.car_name}}  {{ car.car_model}}
+                          </a>
+                          {% endfor %}
+                      </div>
+                </div>
+            </nav>
+     <form class="" action="{% url 'spares:home' %}" >
+      <div class="relative mt-6 max-w-lg mx-auto flex justify-items-center">
+        <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+          <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+        <input
+          class="
+            w-full
+            border
+            rounded-md
+            pl-10
+            pr-4
+            py-2
+            focus:border-blue-500
+            focus:outline-none
+            focus:shadow-outline
+          "
+          type="search"
+          placeholder="Search" name="search"
+        />
+        <button  class="ml-4 px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded 
+        hover:bg-indigo-500 focus:ring-4 focus:bg-indigo-500 focus:ring-opacity-85 " type="submit">
+         Search
+        </button>
+      </div>
+    </form>
+    </div>
+  </header>
+  <main class="my-8">
+    <div class="container mx-auto px-6">
+      <div class="mt-16">
+        <h3 class="text-gray-600 text-2xl font-medium">Spares Products</h3>
+
+        <div
+          class="
+            grid
+            gap-6
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            xl:grid-cols-4
+            mt-6
+            items-center
+            justify-center
+          "
+        >
+          {% for spare in spares %}
+          <div
+            class="w-full max-w-lg mx-auto rounded-md shadow-md overflow-hidden"
+          >
+            <div class="flex items-end justify-end h-56 w-full">
+              <img
+                class="h-full w-full rounded-md object-cover"
+                src="/media/{{ spare.image }}"
+                alt="bag"
+              />
+            </div>
+            <div class="px-5 py-3">
+              <div class="flex items-start">
+                <h3 class="text-gray-700 uppercase">{{ spare.item_name }}</h3>
+              </div>
+              <p class="text-sm text-gray-700 mt-4">
+                Stoke {{ spare.capacity }}
+                        
+              </p> 
+              <div class="flex items-center justify-between">
+
+                  <span
+                    class="
+                      text-gray-500
+                      mt-2
+                      font-semibold
+                      flex
+                      items-start
+                      justify-start
+                    "
+                    >Tsh {{ spare.price }}</span
+                  >
+    
+                  <a href = "{{ spare.addtoorder }}"
+                    class="
+                      px-8
+                      py-2
+                      bg-indigo-600
+                      text-white text-sm
+                      font-medium
+                      rounded
+                      hover:bg-indigo-500
+                      focus:outline-none
+                      focus:bg-indigo-500
+                    "
+                  >
+                    Order Now
+                  </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+        <div class="flex justify-center">
+                <div class="flex rounded-md mt-8">
+                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</a></a>
+                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>1</span></a>
+                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>2</span></a>
+                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>3</span></a>
+                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"><span>Next</span></a>
+                </div>
+        </div>
+    </div>
+  </main>
+</div>
+
+{% endblock content %}

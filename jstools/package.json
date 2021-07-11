@@ -1,0 +1,27 @@
+{
+  "name": "jstools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwind build ../static/css/tailwind.css -o ../static/css/style.css && cleancss -o ../static/css/style.min.css ../static/css/style.css",
+    "start": "gulp serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/forms": "^0.3.3",
+    "alpine": "^0.2.1",
+    "autoprefixer": "^10.2.5",
+    "clean-css-cli": "^5.2.2",
+    "js": "^0.1.0",
+    "postcss": "^8.2.10",
+    "tailwindcss": "^2.2.4"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.14",
+    "gulp": "^4.0.2",
+    "gulp-bro": "^2.0.0"
+  }
+}
