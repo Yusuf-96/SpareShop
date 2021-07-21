@@ -59,8 +59,13 @@
                       </div>
                 </div>
             </nav>
-     <form class="" action="{% url 'spares:home' %}" >
-      <div class="relative mt-6 max-w-lg mx-auto flex justify-items-center">
+      
+   
+    </div>
+  </header>
+  <main class="my-8">
+    <div class="container mx-auto px-6">
+      <div class="relative mt-6 max-w-lg mx- auto flex justify-items-center">
         <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
           <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
             <path
@@ -73,31 +78,28 @@
           </svg>
         </span>
 
-        <input
+        <input 
           class="
             w-full
             border
+            border-indigo-500
             rounded-md
             pl-10
             pr-4
             py-2
-            focus:border-blue-500
+            focus:border-indigo-500
             focus:outline-none
             focus:shadow-outline
           "
-          type="search"
-          placeholder="Search" name="search"
+          type="text"
+          placeholder="Search"
+          id="myInput" onkeyup="myFunction()"
         />
-        <button  class="ml-4 px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded 
+        <!-- <button  class="ml-4 px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded 
         hover:bg-indigo-500 focus:ring-4 focus:bg-indigo-500 focus:ring-opacity-85 " type="submit">
          Search
-        </button>
+        </button> -->
       </div>
-    </form>
-    </div>
-  </header>
-  <main class="my-8">
-    <div class="container mx-auto px-6">
       <div class="mt-16">
         <h3 class="text-gray-600 text-2xl font-medium">Spares Products</h3>
 
@@ -113,10 +115,11 @@
             items-center
             justify-center
           "
+          id = "myCard"
         >
           {% for spare in spares %}
           <div
-            class="w-full max-w-lg mx-auto rounded-md shadow-md overflow-hidden"
+            class="w-full max-w-lg mx-auto rounded-md shadow-md overflow-hidden" id ="card"
           >
             <div class="flex items-end justify-end h-56 w-full">
               <img
@@ -180,5 +183,25 @@
     </div>
   </main>
 </div>
+
+  <script>
+    function myFunction(){
+      var input, filter, ul, li, i, a, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById('myCard');
+      li = ul.getElementById('card');
+
+      for(i=0; i < li.length; i++){
+        a=li[i].getElementById('a')[0];
+        txtValue = a.textContent || a.innerText;
+        if(txtValue.toupparCase().indexof(filter)>-1){
+          li[i].style.display = "";
+        } else{
+          li[i].style.display = "none";
+        }
+      }
+    }
+  </script>
 
 {% endblock content %}

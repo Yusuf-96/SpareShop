@@ -1,4 +1,4 @@
-#!/home/bayou/djangodev/spareshop/venv/bin/python3
+#!/mnt/d/djangodev/spareshop/venv/bin/python3
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

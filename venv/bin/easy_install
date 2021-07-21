@@ -1,4 +1,4 @@
-#!/home/bayou/djangodev/spareshop/venv/bin/python3
+#!/mnt/d/djangodev/spareshop/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

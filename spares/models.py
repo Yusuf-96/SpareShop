@@ -89,6 +89,7 @@ class Sale(models.Model):
                              on_delete=models.CASCADE)
     amount = models.IntegerField()
     sales_date = models.DateTimeField(auto_now_add=True)
+    month = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username}'
